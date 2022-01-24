@@ -1,5 +1,0 @@
-/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/kata_project.dir
-/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/accounting_tests.dir
-/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/test.dir
-/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/edit_cache.dir
-/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/rebuild_cache.dir
