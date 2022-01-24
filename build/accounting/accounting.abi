@@ -1,0 +1,102 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.2",
+    "types": [],
+    "structs": [
+        {
+            "name": "addcategory",
+            "base": "",
+            "fields": [
+                {
+                    "name": "new_category",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "category",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "category_name",
+                    "type": "name"
+                },
+                {
+                    "name": "balance",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "internaltran",
+            "base": "",
+            "fields": [
+                {
+                    "name": "acct_from",
+                    "type": "name"
+                },
+                {
+                    "name": "acct_to",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "listcategory",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "reset",
+            "base": "",
+            "fields": []
+        }
+    ],
+    "actions": [
+        {
+            "name": "addcategory",
+            "type": "addcategory",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "internaltran",
+            "type": "internaltran",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "listcategory",
+            "type": "listcategory",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reset",
+            "type": "reset",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "category",
+            "type": "category",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "kv_tables": {},
+    "ricardian_clauses": [],
+    "variants": [],
+    "action_results": []
+}

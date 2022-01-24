@@ -1,0 +1,14 @@
+# Target labels
+ kata_project
+# Source files and their labels
+/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/kata_project
+/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/kata_project.rule
+/Users/dawei.li/Work/kata_accounting/build/CMakeFiles/kata_project-complete.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-build.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-configure.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-download.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-install.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-mkdir.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-patch.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-test.rule
+/Users/dawei.li/Work/kata_accounting/build/kata_project-prefix/src/kata_project-stamp/kata_project-update.rule
