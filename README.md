@@ -8,14 +8,17 @@ Prerequisites:
   
 Steps:
   1. Deploy the system contracts first, for example:
+    
     cleos set contract eosio.token $HOME/eosio.contracts/build/contracts/eosio.token --abi eosio.token.abi -p eosio.token@active
 
   2. Create, issue and transfer eosio token SYS
+    
     cleos push action eosio.token create '["eosio", "1000000.0000 SYS"]' -p eosio.token
     cleos push action eosio.token issue '[eosio, "10000.0000 SYS", "issuing gifts"]' -p eosio
     cleos push action eosio.token transfer '[ "eosio", "alice", "1000.0000 SYS", "Gift for birthday" ]' -p eosio
 
   3. Build and deploy this accounting contract. Make sure wallets are in the unlocked state. Then run the following commands
+    
     mkdir build && cd build
     cmake ..
     make
@@ -23,6 +26,7 @@ Steps:
     cleos set contract alice $(pwd) --abi accounting.abi -p alice
 
   4. Test actions created in the source file  
+    
     # add categories
     cleos push action alice addcategory '["checking"]' -p alice@active
     cleos push action alice addcategory '["saving"]' -p alice@active
@@ -43,6 +47,7 @@ Steps:
     cleos set contract -c alice . accounting.abi
 
   5. Run automated tests.
+    
     cd ../tests/
     ./accounting_tests
     verify that "*** No errors detected" is displayed at the end
