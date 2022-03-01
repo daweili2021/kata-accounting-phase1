@@ -156,7 +156,7 @@ public:
         });
     }
 
-    // execute a future transfer: use action send to execute the transfer on behalf of eosio.token
+    // execute a future transfer: use eosio::action{}.send() to execute the one-time transfer on behalf of eosio.token
     [[eosio::action]]
     void dofuturetran(eosio::name category) {
         require_auth( get_self() );
@@ -189,7 +189,7 @@ public:
         ht.erase(itr);
     }
 
-    // set up recurring transfer action: checks before adding it
+    // set up recurring transfer action: checks before adding it. Note that this action does not require a reserved fund, which is the key difference between one-time transfer and recurring transfer
     [[eosio::action]]
     void setrecurring(eosio::name category, eosio::asset amount, uint32_t time, uint32_t interval) {
         require_auth( get_self() );
@@ -214,14 +214,14 @@ public:
             eosio::check( 1 != 1, std::string("Category ") + category.to_string() + std::string(" already has a recurring transfer set up.\n") );
         }
     }
-    // recurring transfer action: execute the transfer as the sleep is handled in the helper.sh script
+    // recurring transfer action: action to execute the recurring transfer. Note that the sleep(time interval) is handled in the helper.sh script
     [[eosio::action]]
     void recurringtra(eosio::name category) {
         require_auth( get_self() );
         hold_table ht{ get_self(), 0 };
         auto it_ht = ht.find( category.value );
         eosio::check( it_ht != ht.end(), std::string("Category ") + category.to_string() + std::string(" does not exist in the recurring list table. Or the recurring transfer has been cancelled.\n") );
-
+        eosio::check( current_time() >= it_ht->due_time, "Still early to make the recurring transfer happen as the first scheduled time has not yet arrived.\n" );
         internaltran(category, "default"_n, it_ht->amount, "For recurring transfer\n");
         eosio::action{
             eosio::permission_level{get_self(), "active"_n},

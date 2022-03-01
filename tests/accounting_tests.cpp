@@ -11,12 +11,6 @@ using namespace eosio::chain;
 using namespace eosio::testing;
 using namespace fc;
 
-/* used to be this
-using namespace eosio::testing;
-using namespace eosio;
-using namespace fc;
-//using namespace eosio::chain;
-*/
 
 BOOST_AUTO_TEST_SUITE(accounting_tests)
 
@@ -304,14 +298,14 @@ BOOST_AUTO_TEST_CASE(post) try {
     // setrecurring action
     t.push_action(
             "alice"_n, "setrecurring"_n, "alice"_n,
-            mutable_variant_object("category", "checking")("amount", "10.0000 SYS")("time", "1577836823")("interval", "10")
+            mutable_variant_object("category", "checking")("amount", "10.0000 SYS")("time", "1577836810")("interval", "5")
     );
     // category checing doesn't exist
     BOOST_CHECK_THROW(
         [&] {
             t.push_action(
                         "alice"_n, "setrecurring"_n, "alice"_n,
-                        mutable_variant_object("category", "checing")("amount", "10.0000 SYS")("time", "1577836823")("interval", "10")
+                        mutable_variant_object("category", "checing")("amount", "10.0000 SYS")("time", "1577836810")("interval", "5")
                     );
         }(),
         fc::exception);
@@ -320,7 +314,7 @@ BOOST_AUTO_TEST_CASE(post) try {
         [&] {
             t.push_action(
                         "alice"_n, "setrecurring"_n, "alice"_n,
-                        mutable_variant_object("category", "checking")("amount", "10000.0000 SYS")("time", "1577836823")("interval", "10")
+                        mutable_variant_object("category", "checking")("amount", "10000.0000 SYS")("time", "1577836810")("interval", "5")
                     );
         }(),
         fc::exception);
@@ -329,10 +323,15 @@ BOOST_AUTO_TEST_CASE(post) try {
         [&] {
             t.push_action(
                         "alice"_n, "setrecurring"_n, "alice"_n,
-                        mutable_variant_object("category", "checking")("amount", "10.0000 SYS")("time", "1577836800")("interval", "10")
+                        mutable_variant_object("category", "checking")("amount", "10.0000 SYS")("time", "1577836800")("interval", "5")
                     );
         }(),
         fc::exception);
+
+    t.push_action(
+        "alice"_n, "listfuture"_n, "alice"_n,
+        mutable_variant_object()
+    );
 
     // recurringtra action
     // category cheking doesn't exist
@@ -344,11 +343,36 @@ BOOST_AUTO_TEST_CASE(post) try {
                     );
         }(),
         fc::exception);
+    // too early to execute the first recurring transfer
+    BOOST_CHECK_THROW(
+        [&] {
+            t.push_action(
+                        "alice"_n, "recurringtra"_n, "alice"_n,
+                        mutable_variant_object("category", "checking")
+                    );
+        }(),
+        fc::exception);
+    // simulate recurring transfer action using a combination of produce_blocks and sleep
+    t.produce_blocks(20);
+    sleep(20);
+    t.produce_block();
+    t.push_action(
+                "alice"_n, "recurringtra"_n, "alice"_n,
+                mutable_variant_object("category", "checking")
+            );
 
     t.push_action(
         "alice"_n, "listfuture"_n, "alice"_n,
         mutable_variant_object()
     );
+    // do the recurring transfer again
+    t.produce_blocks(20);
+    sleep(20);
+    t.produce_block();
+    t.push_action(
+                "alice"_n, "recurringtra"_n, "alice"_n,
+                mutable_variant_object("category", "checking")
+            );
 
     // generictran action
     t.push_action(
